@@ -3,7 +3,7 @@
 * Solution to course project "Wordle"
 * Introduction to Programming (Practicum) Course
 * Faculty of Mathematics and Informatics of Sofia University
-* Winter semester 2024/2025
+* Winter semester 2025/2026
 *
 * @author Martin Hritsov
 * @idnumber 4MI0600616
