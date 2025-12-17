@@ -1,17 +1,19 @@
 #include "../headers/menu.h"
+#include "../headers/ANSI_color_codes.h"
 
 #include <iostream>
 
 void printMenu()
 {
-    std::cout << "__          __           _ _\n"
-              << "\\ \\        / /          | | |\n"
-              << " \\ \\  /\\  / /__  _ __ __| | | ___\n"
-              << "  \\ \\/  \\/ / _ \\| '__/ _` | |/ _ \\\n"
-              << "   \\  /\\  / (_) | | | (_| | |  __/\n"
-              << "    \\/  \\/ \\___/|_|  \\__,_|_|\\___|\n"
-              << "_____________________________________\n\n";
-    std::cout << "1. Login as an existing user" << std::endl;
-    std::cout << "2. Register a new user" << std::endl;
-    std::cout << "3. Exit" << std::endl;
+    std::cout << RED << "__          __           _ _\n"
+              << MAG << "\\ \\        / /          | | |\n"
+              << CYN <<  " \\ \\  /\\  / /__  _ __ __| | | ___\n"
+              << BLU << "  \\ \\/  \\/ / _ \\| '__/ _` | |/ _ \\\n"
+              << GRN << "   \\  /\\  / (_) | | | (_| | |  __/\n"
+              << YEL << "    \\/  \\/ \\___/|_|  \\__,_|_|\\___|\n"
+              << BHWHT << "_____________________________________\n\n";
+    std::cout << BHWHT << "1." << WHT << " Login as an existing user" << std::endl;
+    std::cout << BHWHT << "2." << WHT << " Register a new user" << std::endl;
+    std::cout << BHWHT << "3." << WHT << " Exit" << std::endl;
+    std::cout << CRESET;
 }

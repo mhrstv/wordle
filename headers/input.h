@@ -1,0 +1,1 @@
+int readUserInt(const char* prompt, int MIN, int MAX);
