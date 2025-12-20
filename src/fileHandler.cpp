@@ -1,3 +1,19 @@
+/**
+*
+* Solution to course project #09
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Martin Hritsov
+* @idnumber 4MI0600616
+* @compiler GCC
+*
+* This file contains initializations for methods which handle files (reading, writing) + standard library methods such as
+* comparing strings, checking for string prefixes and checking whether a file contains a specific string
+*
+*/
+
 #include "../headers/fileHandler.h"
 #include "../headers/input.h"
 
@@ -19,7 +35,7 @@ bool startsWith(const char* line, const char* str)
 }
 
 bool usernameExists(const char* fileName, const char* username)
-{
+{   
     std::ifstream file(fileName);
     if(!file.is_open())
     {

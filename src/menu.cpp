@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project #09
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Martin Hritsov
+* @idnumber 4MI0600616
+* @compiler GCC
+*
+* File which initializes all the necessary menu methods such as printing the menu to the console's output
+*/
+
+
 #include "../headers/menu.h"
 #include "../headers/ANSI_color_codes.h"
 

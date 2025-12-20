@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project #09
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Martin Hritsov
+* @idnumber 4MI0600616
+* @compiler GCC
+*
+* This file contains the initializations for account related functions such as registering an account or logging into one
+*
+*/
+
 #include "../headers/account.h"
 #include "../headers/input.h"
 

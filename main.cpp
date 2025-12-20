@@ -1,14 +1,15 @@
-/*
+/**
 *
-* Solution to course project "Wordle"
-* Introduction to Programming (Practicum) Course
+* Solution to course project #09
+* Introduction to programming course
 * Faculty of Mathematics and Informatics of Sofia University
 * Winter semester 2025/2026
 *
 * @author Martin Hritsov
-* @faculty_number 4MI0600616
+* @idnumber 4MI0600616
 * @compiler GCC
 *
+* The main file, which the program runs from - includes all the header files and helper functions.
 */
 
 #include "headers/menu.h"
