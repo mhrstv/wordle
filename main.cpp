@@ -13,7 +13,8 @@
 
 #include "headers/menu.h"
 #include "headers/input.h"
-#include "headers/constants.h"
+#include "headers/fileHandler.h"
+#include "headers/account.h"
 
 #include <iostream>
 #include <limits>
@@ -22,14 +23,13 @@ int main()
 {
     printMenu();
     int userChoice = readUserInt(PROMPT_MENU_INPUT, MENU_MIN, MENU_MAX);
-    if(userChoice == 3);  
-    else if(userChoice == 1)
+    if(userChoice == 1)
     {
-
+        loginIntoAccount();
     }
     else if(userChoice == 2)
     {
-
+        registerAccount();
     }
 
     return 0;

@@ -1,0 +1,106 @@
+#include "../headers/fileHandler.h"
+#include "../headers/input.h"
+
+#include <fstream>
+#include <iostream>
+
+bool startsWith(const char* line, const char* str)
+{
+    while(*str != '\0')
+    {
+        if(*line == '\0' || *line != *str) return false;
+        
+        line++;
+        str++;
+    }
+
+    char next = *line;
+    return (next == ' ' || next == ':' || next == ',' || next == '\t' || next == '\0' || next == '\n' || next == '\r');
+}
+
+bool usernameExists(const char* fileName, const char* username)
+{
+    std::ifstream file(fileName);
+    if(!file.is_open())
+    {
+        return false; 
+    }
+
+    char buffer[MAX_BUFFER_SIZE];
+    while(file.getline(buffer, MAX_BUFFER_SIZE))
+    {
+        if(startsWith(buffer, username)) 
+        {
+            file.close();
+            return true; 
+        }
+    }
+    
+    file.close(); 
+    return false; 
+}
+
+bool strEquals(const char* str1, const char* str2)
+{
+    while(*str1 == *str2)
+    {
+        if(*str1 == '\0') return true;
+        str1++;
+        str2++;
+    }
+    return false;
+}
+
+int loadLines(const char* fileName, int maxLines)
+{
+    std::ifstream file(fileName);
+    char* line;
+    if(!file.is_open())
+    {
+        std::cout << "Error: Could not open source file." << std::endl;
+        return -1;
+    }
+
+    char buffer[MAX_BUFFER_SIZE];
+    while(true)
+    {
+        file.getline(buffer, MAX_BUFFER_SIZE);   
+        if(file.eof()) break;  
+    }
+    file.close(); 
+    return 0;
+}
+
+bool appendLine(const char* fileName, const char* line) {
+    std::ofstream file(fileName, std::ios::out | std::ios::app);
+
+    if(!file.is_open()) {
+        std::cout << "Error: Could not open " << fileName << std::endl;
+        return false;
+    }
+
+    file << line << std::endl;
+    file.close();
+    return true;
+}
+
+bool containsLine(const char* fileName, const char* line)
+{
+    std::ifstream file(fileName);
+    if(!file.is_open())
+    {
+        std::cout << "Error: Could not open source file." << std::endl;
+        return false;
+    }
+
+    char buffer[MAX_BUFFER_SIZE];
+    int current = 0;
+    while(true)
+    {
+        file.getline(buffer, MAX_BUFFER_SIZE);  
+        if(strEquals(buffer, line)) return true;
+        if(file.eof()) return false;  
+    }
+    file.close(); 
+    return false;
+}
