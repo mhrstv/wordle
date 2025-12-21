@@ -26,58 +26,60 @@ bool registerAccount() {
     int i = 0;
     while(username[i]) { user[i] = username[i]; i++; }
     user[i++] = ':'; 
+
     int j = 0;
     while(password[j]) { user[i] = password[j]; i++; j++; }
+    user[i++] = ':';
+    
+    const char* defaultType = "user";
+    int t = 0;
+    while(defaultType[t]) { user[i] = defaultType[t]; i++; t++; }
     user[i] = '\0'; 
 
     if(!usernameExists(USERS_FILE, username))
     {
-        if(appendLine(USERS_FILE, user)) {
-            std::cout << "Account registered successfully!" << std::endl;
-            return true;
-        } 
-        else 
+        bool registeredAccount = appendLine(USERS_FILE, user);
+        
+        if(registeredAccount) 
         {
-            std::cout << "Error: Failed to register account." << std::endl;
-            return false;
+            std::cout << "Account registered successfully!" << std::endl;
         }
+        else std::cout << "Error: Failed to register account." << std::endl;
+
+        delete[] username;
+        delete[] password;
+        delete[] user;
+        return registeredAccount;
     }
-    else{
+    else
+    {
         std::cout << "Error: Account with that username already exists." << std::endl;
+        delete[] username;
+        delete[] password;
+        delete[] user;
         return false;
     }
-    
-
-    delete[] username;
-    delete[] password;
-    delete[] user;
 }
 
-bool loginIntoAccount()
+int loginIntoAccount()
 {
     char* username = readUserLine("Enter your username: ");
     char* password = readUserLine("Enter your password: ");
-    char* user = new char[MAX_BUFFER_SIZE * 2]; 
-    
-    int i = 0;
-    while(username[i]) { user[i] = username[i]; i++; }
-    user[i++] = ':'; 
-    int j = 0;
-    while(password[j]) { user[i] = password[j]; i++; j++; }
-    user[i] = '\0'; 
 
-    if(containsLine(USERS_FILE, user))
+    char type[32] = {0};
+    bool accountFound = findAccount(USERS_FILE, username, password, type, sizeof(type));
+    if(accountFound)
     {
         std::cout << "Login successful!" << std::endl;
-        return true;
+        if(strEquals(type, "admin")) return -1;
+        else return 1;
     }
     else
     {
         std::cout << "Error: Failed to login into account." << std::endl;
-        return false;
+        return 0;
     }
 
     delete[] username;
     delete[] password;
-    delete[] user;    
 }

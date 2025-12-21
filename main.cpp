@@ -26,11 +26,21 @@ int main()
     int userChoice = readUserInt(PROMPT_MENU_INPUT, MENU_MIN, MENU_MAX);
     if(userChoice == 1)
     {
-        loginIntoAccount();
+        if(loginIntoAccount() == 1)
+        {
+
+        }
+        else if(loginIntoAccount() == -1)
+        {
+
+        }
     }
     else if(userChoice == 2)
     {
-        registerAccount();
+        if(registerAccount())
+        {
+
+        }
     }
 
     return 0;

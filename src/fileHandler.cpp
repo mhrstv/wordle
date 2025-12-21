@@ -20,11 +20,36 @@
 #include <fstream>
 #include <iostream>
 
+size_t myStrLen(const char* str)
+{
+    int len = 0;
+    if(!str) return 0;
+    while(str[len] != '\0')
+    {
+        len++;
+    } 
+    return len;
+}
+
+bool strEquals(const char* str1, const char* str2)
+{
+    while(*str1 == *str2)
+    {
+        if(*str1 == '\0') return true;
+        str1++;
+        str2++;
+    }
+    return false;
+}
+
 bool startsWith(const char* line, const char* str)
 {
     while(*str != '\0')
     {
-        if(*line == '\0' || *line != *str) return false;
+        if(*line == '\0' || *line != *str) 
+        {
+            return false;
+        }
         
         line++;
         str++;
@@ -56,21 +81,11 @@ bool usernameExists(const char* fileName, const char* username)
     return false; 
 }
 
-bool strEquals(const char* str1, const char* str2)
-{
-    while(*str1 == *str2)
-    {
-        if(*str1 == '\0') return true;
-        str1++;
-        str2++;
-    }
-    return false;
-}
-
 int loadLines(const char* fileName, int maxLines)
 {
     std::ifstream file(fileName);
     char* line;
+
     if(!file.is_open())
     {
         std::cout << "Error: Could not open source file." << std::endl;
@@ -83,6 +98,7 @@ int loadLines(const char* fileName, int maxLines)
         file.getline(buffer, MAX_BUFFER_SIZE);   
         if(file.eof()) break;  
     }
+
     file.close(); 
     return 0;
 }
@@ -96,6 +112,7 @@ bool appendLine(const char* fileName, const char* line) {
     }
 
     file << line << std::endl;
+    
     file.close();
     return true;
 }
@@ -117,6 +134,49 @@ bool containsLine(const char* fileName, const char* line)
         if(strEquals(buffer, line)) return true;
         if(file.eof()) return false;  
     }
+
     file.close(); 
+    return false;
+}
+
+bool findAccount(const char* fileName, const char* username, const char* password, char* type, int typeSize)
+{
+    std::ifstream file(fileName);
+    if (!file.is_open()) return false;
+
+    char buffer[MAX_BUFFER_SIZE];
+    while (file.getline(buffer, MAX_BUFFER_SIZE))
+    {
+        int i = 0, j = 0;
+        while (buffer[i] != ':' && buffer[i] != '\0' && username[j] == buffer[i])
+        { 
+            i++; 
+            j++; 
+        }
+
+        if (username[j] != '\0' || buffer[i] != ':') continue; 
+        i++; 
+
+        j = 0; 
+        while (buffer[i] != ':' && buffer[i] != '\0' && password[j] == buffer[i]) 
+        { 
+            i++; 
+            j++; 
+        }
+
+        if (password[j] != '\0' || buffer[i] != ':') continue;
+        i++; 
+
+        if (type && typeSize > 0)
+        {
+            j = 0;
+            while (buffer[i] != '\0' && j < typeSize - 1)
+            {
+                type[j++] = buffer[i++];
+            }
+            type[j] = '\0';
+        }
+        return true;
+    }
     return false;
 }
