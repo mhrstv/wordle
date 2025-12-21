@@ -21,10 +21,13 @@
 
 int readUserInt(const char* prompt, int MIN, int MAX) {
     int input;
-    while(true) {
+    while(true) 
+    {
         std::cout << prompt;
-        if (std::cin >> input) {
-            if(input >= MIN && input <= MAX) {
+        if (std::cin >> input) 
+        {
+            if(input >= MIN && input <= MAX) 
+            {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 return input;
             }
@@ -37,7 +40,6 @@ int readUserInt(const char* prompt, int MIN, int MAX) {
 char* readUserLine(const char* prompt) {
     std::cout << prompt;
     char* line = new char[MAX_BUFFER_SIZE]; 
-    
     std::cin.getline(line, MAX_BUFFER_SIZE);
     
     return line;
