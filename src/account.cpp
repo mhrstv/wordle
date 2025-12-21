@@ -30,7 +30,7 @@ bool registerAccount() {
     while(password[j]) { user[i] = password[j]; i++; j++; }
     user[i] = '\0'; 
 
-    if(!usernameExists(USERS_FILE, user))
+    if(!usernameExists(USERS_FILE, username))
     {
         if(appendLine(USERS_FILE, user)) {
             std::cout << "Account registered successfully!" << std::endl;
