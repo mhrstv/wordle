@@ -23,6 +23,6 @@ inline const int MAX_BUFFER_SIZE = 1024;
 
 inline const int MAX_ATTEMPTS = 6;
 
-inline const char* WORLD_FILE = "worldle.txt";
+const char WORLD_FILE[] = "words.txt";
 const char USERS_FILE[] = "users.txt";
-inline const char* LEADERBOARD_FILE = "leaderboard.txt";
+const char LEADERBOARD_FILE[] = "leaderboard.txt";
