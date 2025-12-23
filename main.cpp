@@ -16,6 +16,7 @@
 #include "headers/input.h"
 #include "headers/fileHandler.h"
 #include "headers/account.h"
+#include "headers/admin.h"
 
 #include <iostream>
 #include <limits>
@@ -26,13 +27,14 @@ int main()
     int userChoice = readUserInt(PROMPT_MENU_INPUT, MENU_MIN, MENU_MAX);
     if(userChoice == 1)
     {
-        if(loginIntoAccount() == 1)
+        int loginResult = loginIntoAccount();
+        if(loginResult == 1)
         {
 
         }
-        else if(loginIntoAccount() == -1)
+        else if(loginResult == -1)
         {
-
+            adminMenu();
         }
     }
     else if(userChoice == 2)
