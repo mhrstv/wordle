@@ -25,10 +25,11 @@ struct PlayerStatistics{
 
 bool strEquals(const char* str1, const char* str2);
 
-bool usernameExists(const char* fileName, const char* username);
+bool usernameExists(const char* fileName, const char* line);
 bool findAccount(const char* fileName, const char* username, const char* password, char* type, int typeSize);
 
 bool appendLine(const char* fileName, const char* line);
+bool removeLine(const char* fileName, const char* line);
 int loadLines(const char* fileName, int maxLines);
 bool containsLine(const char* fileName, const char* line);
 

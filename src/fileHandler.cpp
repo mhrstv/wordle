@@ -20,17 +20,6 @@
 #include <fstream>
 #include <iostream>
 
-size_t myStrLen(const char* str)
-{
-    int len = 0;
-    if(!str) return 0;
-    while(str[len] != '\0')
-    {
-        len++;
-    } 
-    return len;
-}
-
 bool strEquals(const char* str1, const char* str2)
 {
     while(*str1 == *str2)
@@ -59,7 +48,7 @@ bool startsWith(const char* line, const char* str)
     return (next == ' ' || next == ':' || next == ',' || next == '\t' || next == '\0' || next == '\n' || next == '\r');
 }
 
-bool usernameExists(const char* fileName, const char* username)
+bool usernameExists(const char* fileName, const char* line)
 {   
     std::ifstream file(fileName);
     if(!file.is_open())
@@ -70,7 +59,7 @@ bool usernameExists(const char* fileName, const char* username)
     char buffer[MAX_BUFFER_SIZE];
     while(file.getline(buffer, MAX_BUFFER_SIZE))
     {
-        if(startsWith(buffer, username)) 
+        if(startsWith(buffer, line)) 
         {
             file.close();
             return true; 
@@ -114,6 +103,50 @@ bool appendLine(const char* fileName, const char* line) {
     file << line << std::endl;
     
     file.close();
+    return true;
+}
+
+bool removeLine(const char* fileName, const char* line)
+{
+    std::ifstream inputFile(fileName);
+    if(!inputFile.is_open())
+    {
+        std::cout << "Error: Could not open source file." << std::endl;
+        return false;
+    }
+
+    std::ofstream tempFile("temp.txt");
+    if(!tempFile.is_open())
+    {
+        std::cout << "Error: Could not create temporary file." << std::endl;
+        inputFile.close();
+        return false;
+    }
+
+    char buffer[MAX_BUFFER_SIZE];
+    while(inputFile.getline(buffer, MAX_BUFFER_SIZE))
+    {
+        if(!strEquals(buffer, line))
+        {
+            tempFile << buffer << std::endl;
+        }
+    }
+
+    inputFile.close();
+    tempFile.close();
+
+    if(std::remove(fileName) != 0)
+    {
+        std::cout << "Error: Could not delete original file." << std::endl;
+        return false;
+    }
+
+    if(std::rename("temp.txt", fileName) != 0)
+    {
+        std::cout << "Error: Could not rename temporary file." << std::endl;
+        return false;
+    }
+
     return true;
 }
 
