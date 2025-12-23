@@ -48,7 +48,7 @@ bool startsWith(const char* line, const char* str)
     return (next == ' ' || next == ':' || next == ',' || next == '\t' || next == '\0' || next == '\n' || next == '\r');
 }
 
-bool usernameExists(const char* fileName, const char* line)
+bool usernameExists(const char* fileName, const char* username)
 {   
     std::ifstream file(fileName);
     if(!file.is_open())
@@ -59,7 +59,7 @@ bool usernameExists(const char* fileName, const char* line)
     char buffer[MAX_BUFFER_SIZE];
     while(file.getline(buffer, MAX_BUFFER_SIZE))
     {
-        if(startsWith(buffer, line)) 
+        if(startsWith(buffer, username)) 
         {
             file.close();
             return true; 
