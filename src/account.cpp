@@ -15,6 +15,7 @@
 
 #include "../headers/account.h"
 #include "../headers/input.h"
+#include "../headers/std.hpp"
 
 #include <iostream>
 
