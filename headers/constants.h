@@ -14,15 +14,15 @@
 */
 
 #pragma once
-inline const char* PROMPT_MENU_INPUT = "Choose an option from the menu (1-3): ";
-inline const int MENU_MIN = 1;
-inline const int MENU_MAX = 3;
-inline const int ADMIN_MENU_MAX = 4;
+inline const char* PROMPT_MENU_INPUT = "Choose an option from the menu ";
+const int MENU_MIN = 1;
+const int MENU_MAX = 3;
+const int ADMIN_MENU_MAX = 4;
 
-inline const int MAX_BUFFER_SIZE = 1024;
+const int MAX_BUFFER_SIZE = 1024;
 
-inline const int MAX_WORD_LENGTH = 5;
-inline const int MAX_ATTEMPTS = 6;
+const int MAX_WORD_LENGTH = 5;
+const int MAX_ATTEMPTS = 6;
 
 const char WORDS_FILE[] = "words.txt";
 const char USERS_FILE[] = "users.txt";
