@@ -27,8 +27,8 @@ void printMenu()
               << GRN << "   \\  /\\  / (_) | | | (_| | |  __/\n"
               << YEL << "    \\/  \\/ \\___/|_|  \\__,_|_|\\___|\n"
               << BHWHT << "_____________________________________\n\n";
-    std::cout << BHWHT << "1." << WHT << " Login as an existing user" << std::endl;
-    std::cout << BHWHT << "2." << WHT << " Register a new user" << std::endl;
-    std::cout << BHWHT << "3." << WHT << " Exit" << std::endl;
+    std::cout << BHWHT << "1." << " Login as an existing user" << std::endl;
+    std::cout << BHWHT << "2." << " Register a new user" << std::endl;
+    std::cout << BHWHT << "3." << " Exit" << std::endl;
     std::cout << CRESET;
 }
