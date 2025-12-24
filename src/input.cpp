@@ -23,7 +23,7 @@ int readUserInt(const char* prompt, int MIN, int MAX) {
     int input;
     while(true) 
     {
-        std::cout << prompt;
+        std::cout << prompt << "(" << MIN << "-" << MAX << "): ";
         if (std::cin >> input) 
         {
             if(input >= MIN && input <= MAX) 
