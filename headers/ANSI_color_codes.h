@@ -86,3 +86,6 @@
 
 //Reset
 #define CRESET "\e[0m"
+
+#define CURSOR_UP "\033[1A"
+#define ERASE_LINE "\033[2K"
