@@ -17,6 +17,7 @@
 #include "headers/fileHandler.h"
 #include "headers/account.h"
 #include "headers/admin.h"
+#include "headers/user.h"
 
 #include <iostream>
 #include <limits>
@@ -30,7 +31,7 @@ int main()
         int loginResult = loginIntoAccount();
         if(loginResult == 1)
         {
-
+            startGame(MAX_ATTEMPTS);
         }
         else if(loginResult == -1)
         {
@@ -41,7 +42,7 @@ int main()
     {
         if(registerAccount())
         {
-
+            startGame(MAX_ATTEMPTS);
         }
     }
 
