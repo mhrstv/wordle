@@ -16,6 +16,7 @@
 
 #pragma once
 #include "constants.h"
+#include "std.hpp"
 
 struct PlayerStatistics{
     char playerUsername[32];
@@ -23,10 +24,9 @@ struct PlayerStatistics{
     int wins;
 };
 
-bool strEquals(const char* str1, const char* str2);
-
 bool usernameExists(const char* fileName, const char* username);
 bool findAccount(const char* fileName, const char* username, const char* password, char* type, int typeSize);
+char* getRandomWord(const char* fileName);
 
 bool appendLine(const char* fileName, const char* line);
 bool removeLine(const char* fileName, const char* line);

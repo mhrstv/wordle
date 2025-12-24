@@ -9,8 +9,8 @@
 * @idnumber 4MI0600616
 * @compiler GCC
 *
-* This file contains initializations for methods which handle files (reading, writing) + standard library methods such as
-* comparing strings, checking for string prefixes and checking whether a file contains a specific string
+* This file contains initializations for methods which handle files (reading, writing) + methods such as
+* checking for string prefixes and checking whether a file contains a specific string
 *
 */
 
@@ -19,17 +19,8 @@
 
 #include <fstream>
 #include <iostream>
-
-bool strEquals(const char* str1, const char* str2)
-{
-    while(*str1 == *str2)
-    {
-        if(*str1 == '\0') return true;
-        str1++;
-        str2++;
-    }
-    return false;
-}
+#include <cstdlib>
+#include <ctime>
 
 bool startsWith(const char* line, const char* str)
 {
@@ -212,4 +203,37 @@ bool findAccount(const char* fileName, const char* username, const char* passwor
         return true;
     }
     return false;
+}
+
+char* getRandomWord(const char* fileName)
+{
+    std::ifstream file(fileName);
+    if (!file.is_open()) return nullptr;
+
+    char buffer[MAX_BUFFER_SIZE];
+    int count = 0;
+    while (file.getline(buffer, MAX_BUFFER_SIZE)) 
+    {
+        count++;
+    }
+    if (count == 0) return nullptr;
+
+    file.clear(); 
+    file.seekg(0); 
+    std::srand(std::time(0));
+    int target = std::rand() % count;
+    for (int i = 0; i <= target; i++)
+    {
+        file.getline(buffer, MAX_BUFFER_SIZE);
+    } 
+
+    int len = 0;
+    while (buffer[len]) 
+    {
+        len++;
+    }
+    char* word = new char[len + 1];
+    for (int i = 0; i <= len; i++) word[i] = buffer[i];
+
+    return word;
 }
