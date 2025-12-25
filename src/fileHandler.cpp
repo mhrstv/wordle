@@ -16,6 +16,7 @@
 
 #include "../headers/fileHandler.h"
 #include "../headers/input.h"
+#include "../headers/ANSI_color_codes.h"
 
 #include <fstream>
 #include <iostream>
@@ -68,7 +69,7 @@ int loadLines(const char* fileName, int maxLines)
 
     if(!file.is_open())
     {
-        std::cout << "Error: Could not open source file." << std::endl;
+        std::cout << RED << "Error: Could not open source file." << std::endl;
         return -1;
     }
 
@@ -87,7 +88,7 @@ bool appendLine(const char* fileName, const char* line) {
     std::ofstream file(fileName, std::ios::out | std::ios::app);
 
     if(!file.is_open()) {
-        std::cout << "Error: Could not open " << fileName << std::endl;
+        std::cout << RED << "Error: Could not open " << fileName << std::endl;
         return false;
     }
 
@@ -102,14 +103,14 @@ bool removeLine(const char* fileName, const char* line)
     std::ifstream inputFile(fileName);
     if(!inputFile.is_open())
     {
-        std::cout << "Error: Could not open source file." << std::endl;
+        std::cout << RED << "Error: Could not open source file." << std::endl;
         return false;
     }
 
     std::ofstream tempFile("temp.txt");
     if(!tempFile.is_open())
     {
-        std::cout << "Error: Could not create temporary file." << std::endl;
+        std::cout << RED << "Error: Could not create temporary file." << std::endl;
         inputFile.close();
         return false;
     }
@@ -128,13 +129,13 @@ bool removeLine(const char* fileName, const char* line)
 
     if(std::remove(fileName) != 0)
     {
-        std::cout << "Error: Could not delete original file." << std::endl;
+        std::cout << RED << "Error: Could not delete original file." << std::endl;
         return false;
     }
 
     if(std::rename("temp.txt", fileName) != 0)
     {
-        std::cout << "Error: Could not rename temporary file." << std::endl;
+        std::cout << RED << "Error: Could not rename temporary file." << std::endl;
         return false;
     }
 
@@ -146,7 +147,7 @@ bool containsLine(const char* fileName, const char* line)
     std::ifstream file(fileName);
     if(!file.is_open())
     {
-        std::cout << "Error: Could not open source file." << std::endl;
+        std::cout << RED << "Error: Could not open source file." << std::endl;
         return false;
     }
 

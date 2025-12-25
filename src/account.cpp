@@ -16,6 +16,7 @@
 #include "../headers/account.h"
 #include "../headers/input.h"
 #include "../headers/std.hpp"
+#include "../headers/ANSI_color_codes.h"
 
 #include <iostream>
 
@@ -45,7 +46,7 @@ bool registerAccount() {
         {
             std::cout << "Account registered successfully!" << std::endl;
         }
-        else std::cout << "Error: Failed to register account." << std::endl;
+        else std::cout << RED << "Error: Failed to register account." << std::endl;
 
         delete[] username;
         delete[] password;
@@ -54,7 +55,7 @@ bool registerAccount() {
     }
     else
     {
-        std::cout << "Error: Account with that username already exists." << std::endl;
+        std::cout << RED << "Error: Account with that username already exists." << std::endl;
         delete[] username;
         delete[] password;
         delete[] user;
@@ -77,7 +78,7 @@ int loginIntoAccount()
     }
     else
     {
-        std::cout << "Error: Failed to login into account." << std::endl;
+        std::cout << RED << "Error: Failed to login into account." << std::endl;
         return 0;
     }
 
