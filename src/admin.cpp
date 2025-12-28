@@ -77,6 +77,14 @@ bool addWord(const char* fileName)
     std::cout << "Enter word to add to words list: ";
     char word[MAX_WORD_LENGTH + 1];
     std::cin.getline(word, MAX_WORD_LENGTH + 1);
+    for(int i = 0; i < strLen(word); i++)
+    {
+        if(!isLetter(word[i]))
+        {
+            std::cout << RED << "Error: Word must contain only latin letters." << CRESET << std::endl;
+            return false;
+        }
+    }
     if(strLen(word) != MAX_WORD_LENGTH)
     {
         std::cout << "Error: Word must be exactly " << MAX_WORD_LENGTH << " letters long." << std::endl;

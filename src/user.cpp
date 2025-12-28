@@ -57,7 +57,7 @@ void printGuessResult(const char* guess, const char* target, size_t length)
             }
 
             if(found) std::cout << YEL << current << CRESET;
-            else std::cout << current;
+            else std::cout << WHT << current << CRESET;
         }
     }
     std::cout << std::endl;
@@ -70,6 +70,15 @@ bool playerTurn(const char* word, size_t len, bool& guessed)
     {
         delete[] guess;
         return false;
+    }
+    for(int i = 0; i < strLen(guess); i++)
+    {
+        if(!isLetter(guess[i]))
+        {
+            std::cout << RED << "Error: Word must contain only latin letters." << CRESET << std::endl;
+            delete[] guess;
+            return false;
+        }
     }
 
     if (strEquals(guess, word))
@@ -112,6 +121,7 @@ void endGame(const char* word, bool guessed, const char* username)
     }
 
     updateLeaderboard(LEADERBOARD_FILE, username, guessed);
+    std::cin.get();
 }
 
 void startGame(int attempts, const char* username)
