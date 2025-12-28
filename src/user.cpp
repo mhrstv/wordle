@@ -1,3 +1,19 @@
+/**
+*
+* Solution to course project #09
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Martin Hritsov
+* @idnumber 4MI0600616
+* @compiler GCC
+*
+* This file contains all the implementations for user related functions such as starting the game
+* plus additiional helper methods for the game loop, handling turns and printing results
+*
+*/
+
 #include "../headers/user.h"
 #include "../headers/input.h"
 #include "../headers/fileHandler.h"
@@ -47,46 +63,70 @@ void printGuessResult(const char* guess, const char* target, size_t length)
     std::cout << std::endl;
 }
 
-void startGame(int attempts)
+bool playerTurn(const char* word, size_t len, bool& guessed)
+{
+    char* guess = readUserLine("");
+    if (!compareGuessLength(guess, len))
+    {
+        delete[] guess;
+        return false;
+    }
+
+    if (strEquals(guess, word))
+    {
+        guessed = true;
+        printGuessResult(guess, word, len);
+        std::cout << "Congratulations! You win!" << std::endl;
+    }
+    else
+    {
+        printGuessResult(guess, word, len);
+    }
+
+    delete[] guess;
+    return true;
+}
+
+void runGameLoop(const char* word, int maxAttempts, bool& guessed)
+{
+    size_t len = strLen(word);
+    int currentAttempts = 0;
+
+    std::cout << "You have " << BLU << maxAttempts << CRESET << " attempts left." << std::endl;
+
+    while (currentAttempts < maxAttempts && !guessed)
+    {
+        if (playerTurn(word, len, guessed))
+        {
+            currentAttempts++;
+        }
+    }
+}
+
+void endGame(const char* word, bool guessed, const char* username)
+{
+    if (!guessed)
+    {
+        std::cout << RED << "You lose. No more attempts left." << CRESET << std::endl;
+        std::cout << "The correct word was: " << word << std::endl;
+    }
+
+    updateLeaderboard(LEADERBOARD_FILE, username, guessed);
+}
+
+void startGame(int attempts, const char* username)
 {
     const char* word = getRandomWord(WORDS_FILE);
-    if(!word)
+
+    if (!word)
     {
         std::cout << RED << "Error retrieving word." << CRESET << std::endl;
         return;
     }
 
-    size_t wordLength = strLen(word);
-    int currentAttempts = 0;
     bool guessed = false;
-    
-    std::cout << "You have " << BLU << attempts << CRESET << " attempts left." << std::endl;
+    runGameLoop(word, attempts, guessed);
 
-    while(currentAttempts < attempts && !guessed)
-    {
-        char* guess = readUserLine("");
-        if(!compareGuessLength(guess, wordLength))
-        {
-            delete[] guess;
-            continue; 
-        }
-        currentAttempts++;
-
-        if(strEquals(guess, word))
-        {
-            guessed = true;
-            printGuessResult(guess, word, wordLength);
-            std::cout << "Congratulations! You win!" << std::endl;
-        }
-        else
-        {
-            printGuessResult(guess, word, wordLength);
-        }
-        delete[] guess;
-    }
-    if(!guessed)
-    {
-        std::cout << RED << "You lose. No more attempts left." << CRESET << std::endl;
-        std::cout << "The correct word was: " << word << std::endl;
-    }
+    endGame(word, guessed, username);
+    delete[] word;
 }
