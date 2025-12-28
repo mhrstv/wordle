@@ -23,7 +23,7 @@ const int MAX_BUFFER_SIZE = 1024;
 
 const int MAX_WORD_LENGTH = 5;
 const int MAX_ATTEMPTS = 6;
-const int MAX_ENTRIES = 256;
+const int MAX_STATS = 256;
 
 const char WORDS_FILE[] = "words.txt";
 const char USERS_FILE[] = "users.txt";
