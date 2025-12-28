@@ -20,50 +20,75 @@
 
 #include <iostream>
 
-bool registerAccount() {
-    char* username = readUserLine("Type desired username: ");
-    char* password = readUserLine("Type desired password: ");
-    char* user = new char[MAX_BUFFER_SIZE * 2]; 
-    
+void appendToBuffer(char* buffer, int& index, const char* src)
+{
     int i = 0;
-    while(username[i]) { user[i] = username[i]; i++; }
-    user[i++] = ':'; 
-
-    int j = 0;
-    while(password[j]) { user[i] = password[j]; i++; j++; }
-    user[i++] = ':';
-    
-    const char* defaultType = "user";
-    int t = 0;
-    while(defaultType[t]) { user[i] = defaultType[t]; i++; t++; }
-    user[i] = '\0'; 
-
-    if(!usernameExists(USERS_FILE, username))
+    while (src[i])
     {
-        bool registeredAccount = appendLine(USERS_FILE, user);
-        
-        if(registeredAccount) 
-        {
-            std::cout << "Account registered successfully!" << std::endl;
-        }
-        else std::cout << RED << "Error: Failed to register account." << std::endl;
-
-        delete[] username;
-        delete[] password;
-        delete[] user;
-        return registeredAccount;
-    }
-    else
-    {
-        std::cout << RED << "Error: Account with that username already exists." << std::endl;
-        delete[] username;
-        delete[] password;
-        delete[] user;
-        return false;
+        buffer[index] = src[i];
+        index++;
+        i++;
     }
 }
 
-int loginIntoAccount()
+char* formatData(const char* username, const char* password)
+{
+    char* userLine = new char[MAX_BUFFER_SIZE * 2];
+    int index = 0;
+
+    appendToBuffer(userLine, index, username);
+    userLine[index] = ':';
+    index++;
+
+    appendToBuffer(userLine, index, password);
+    userLine[index] = ':';
+    index++;
+
+    appendToBuffer(userLine, index, "user");
+    userLine[index] = '\0';
+    return userLine;
+}
+
+bool attemptToRegister(const char* username, const char* userLine, char* outputUsername)
+{
+    if (usernameExists(USERS_FILE, username))
+    {
+        std::cout << RED << "Error: Account with that username already exists." << std::endl;
+        return false;
+    }
+
+    if (appendLine(USERS_FILE, userLine))
+    {
+        std::cout << "Account registered successfully!" << std::endl;
+        strCpy(outputUsername, username);
+        return true;
+    }
+
+    std::cout << RED << "Error: Failed to register account." << std::endl;
+    return false;
+}
+
+bool registerAccount(char* outputUsername)
+{
+    char* username = readUserLine("Type desired username: ");
+    char* password = readUserLine("Type desired password: ");
+
+    if (!username || !password)
+    {
+        return false;
+    }
+
+    char* userLine = formatData(username, password);
+    bool result = attemptToRegister(username, userLine, outputUsername);
+
+    delete[] username;
+    delete[] password;
+    delete[] userLine;
+
+    return result;
+}
+
+int loginIntoAccount(char* outputUsername)
 {
     char* username = readUserLine("Enter your username: ");
     char* password = readUserLine("Enter your password: ");
@@ -73,15 +98,18 @@ int loginIntoAccount()
     if(accountFound)
     {
         std::cout << "Login successful!" << std::endl;
+        strCpy(outputUsername, username); 
+
+        delete[] username;
+        delete[] password;
         if(strEquals(type, "admin")) return -1;
         else return 1;
     }
     else
     {
         std::cout << RED << "Error: Failed to login into account." << std::endl;
+        delete[] username;
+        delete[] password;
         return 0;
     }
-
-    delete[] username;
-    delete[] password;
 }
