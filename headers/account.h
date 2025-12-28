@@ -15,5 +15,5 @@
 
 #include "fileHandler.h"
 
-bool registerAccount();
-int loginIntoAccount();
+bool registerAccount(char* outputUsername);
+int loginIntoAccount(char* outputUsername);
