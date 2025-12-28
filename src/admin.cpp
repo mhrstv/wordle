@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project #09
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Martin Hritsov
+* @idnumber 4MI0600616
+* @compiler GCC
+*
+* This file contains the implementations for all admin related functions such as viewing the leaderboard and adding/removing words
+*
+*/
+
 #include "../headers/admin.h"
 #include "../headers/fileHandler.h"
 #include "../headers/ANSI_color_codes.h"
@@ -49,7 +64,7 @@ void adminMenu()
                 }
                 break;
             case 3:
-            
+                viewLeaderboard(LEADERBOARD_FILE);
                 break;
             case 4:
                 return;
@@ -81,4 +96,92 @@ bool removeWord(const char* fileName)
         return false;
     }
     return containsLine(fileName, word) && removeLine(fileName, word);
+}
+
+void printSortMenu()
+{
+    std::cout << BHWHT << "Select sorting method:\n";
+    std::cout << "1. By Games Played (Descending)\n";
+    std::cout << "2. By Win Rate (Descending)\n" << CRESET;
+}
+
+bool swap(const UserStat& a, const UserStat& b, int choice)
+{
+    if (choice == 1)
+    {
+        return a.played < b.played;
+    }
+    return a.winRate < b.winRate;
+}
+
+void sortLeaderboard(UserStat* stats, int count, int choice)
+{
+    for (int i = 0; i < count - 1; i++)
+    {
+        for (int j = 0; j < count - i - 1; j++)
+        {
+            if (swap(stats[j], stats[j + 1], choice))
+            {
+                UserStat temp = stats[j];
+                stats[j] = stats[j + 1];
+                stats[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void printLeaderboardRow(const UserStat& stat)
+{
+    std::cout << YEL << stat.username << CRESET;
+    int len = 0;
+    while (stat.username[len])
+    {
+        len++;
+    }
+
+    if (len < 8)
+    {
+        std::cout << "\t\t";
+    }
+    else
+    {
+        std::cout << "\t";
+    }
+
+    std::cout << stat.played << "\t" << stat.wins << "\t";
+    int percent = (int)(stat.winRate * 100);
+    std::cout << percent << "%" << std::endl;
+}
+
+void printLeaderboard(UserStat* stats, int count)
+{
+    std::cout << "\n" << BHWHT << "====== LEADERBOARD ======" << CRESET << std::endl;
+    std::cout << UCYN << "Username" << "\t\t" << "Played" << "\t" << "Wins" << "\t" << "Win Rate" << CRESET << std::endl;
+
+    for (int i = 0; i < count; i++)
+    {
+        printLeaderboardRow(stats[i]);
+    }
+    std::cout << BHWHT << "=========================\n" << CRESET << std::endl;
+}
+
+void viewLeaderboard(const char* fileName)
+{
+    UserStat stats[MAX_STATS];
+    int count = loadLeaderboardData(fileName, stats, MAX_STATS);
+
+    if (count == 0)
+    {
+        std::cout << RED << "No leaderboard data found/file is empty." << CRESET << std::endl;
+        return;
+    }
+
+    printSortMenu();
+    int choice = readUserInt("Enter choice: ", 1, 2);
+
+    sortLeaderboard(stats, count, choice);
+    printLeaderboard(stats, count);
+
+    std::cout << "Press Enter to return to the admin menu...";
+    std::cin.get();
 }
