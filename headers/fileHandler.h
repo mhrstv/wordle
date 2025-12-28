@@ -18,10 +18,11 @@
 #include "constants.h"
 #include "std.hpp"
 
-struct PlayerStatistics{
-    char playerUsername[32];
-    int playedGames;
+struct UserStat {
+    char username[MAX_BUFFER_SIZE];
+    int played;
     int wins;
+    double winRate;
 };
 
 bool usernameExists(const char* fileName, const char* username);
@@ -33,5 +34,6 @@ bool removeLine(const char* fileName, const char* line);
 int loadLines(const char* fileName, int maxLines);
 bool containsLine(const char* fileName, const char* line);
 
-bool saveLeaderboard(const char* fileName, PlayerStatistics statistics[], int count);
-bool loadLeaderboard(const char* fileName, PlayerStatistics statistics[], int max);
+bool saveLeaderboard(const char* fileName);
+int loadLeaderboardData(const char* fileName, UserStat* stats, int maxEntries);
+bool updateLeaderboard(const char* fileName, const char* username, bool won);
