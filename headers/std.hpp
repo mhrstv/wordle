@@ -75,3 +75,8 @@ inline void strCpy(char* dest, const char* src)
     }
     dest[i] = '\0';
 }
+
+inline bool isLetter(char c)
+{
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
