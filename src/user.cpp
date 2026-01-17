@@ -25,8 +25,7 @@
 
 bool compareGuessLength(const char* guess, size_t requiredLength)
 {
-    if (strLen(guess) != requiredLength)
-    {
+    if (strLen(guess) != requiredLength) {
         std::cout << RED << "Your guess must be " << requiredLength << " letters long." << std::endl;
         std::cout << CRESET;
         return false;
@@ -37,20 +36,15 @@ bool compareGuessLength(const char* guess, size_t requiredLength)
 void printGuessResult(const char* guess, const char* target, size_t length)
 {
     std::cout << CURSOR_UP << ERASE_LINE << "\r"; 
-    for (int i = 0; i < length; i++)
-    {
+    for (int i = 0; i < length; i++) {
         char current = guess[i];
-        if (current == target[i])
-        {
+        if (current == target[i]) {
             std::cout << GRN << current << CRESET;
         }
-        else
-        {
+        else {
             bool found = false;
-            for (int j = 0; j < length; j++)
-            {
-                if (target[j] == current)
-                {
+            for (int j = 0; j < length; j++) {
+                if (target[j] == current) {
                     found = true;
                     break;
                 }
@@ -67,29 +61,24 @@ void printGuessResult(const char* guess, const char* target, size_t length)
 bool playerTurn(const char* word, size_t len, bool& guessed)
 {
     char* guess = readUserLine("");
-    if (!compareGuessLength(guess, len))
-    {
+    if (!compareGuessLength(guess, len)) {
         delete[] guess;
         return false;
     }
-    for (int i = 0; i < strLen(guess); i++)
-    {
-        if (!isLetter(guess[i]))
-        {
+    for (int i = 0; i < strLen(guess); i++) {
+        if (!isLetter(guess[i])) {
             std::cout << RED << "Error: Word must contain only latin letters." << CRESET << std::endl;
             delete[] guess;
             return false;
         }
     }
 
-    if (strEquals(guess, word))
-    {
+    if (strEquals(guess, word)) {
         guessed = true;
         printGuessResult(guess, word, len);
         std::cout << "Congratulations! You win!" << std::endl;
     }
-    else
-    {
+    else {
         printGuessResult(guess, word, len);
     }
 
@@ -104,10 +93,8 @@ void runGameLoop(const char* word, int maxAttempts, bool& guessed)
 
     std::cout << GRN << "Game started!" << CRESET << " You have " << BLU << maxAttempts << CRESET << " attempts left." << std::endl;
 
-    while (currentAttempts < maxAttempts && !guessed)
-    {
-        if (playerTurn(word, len, guessed))
-        {
+    while (currentAttempts < maxAttempts && !guessed) {
+        if (playerTurn(word, len, guessed)) {
             currentAttempts++;
         }
     }
@@ -115,8 +102,7 @@ void runGameLoop(const char* word, int maxAttempts, bool& guessed)
 
 void endGame(const char* word, bool guessed, const char* username)
 {
-    if (!guessed)
-    {
+    if (!guessed) {
         std::cout << RED << "You lose. No more attempts left." << CRESET << std::endl;
         std::cout << "The correct word was: " << word << std::endl;
     }
@@ -129,8 +115,7 @@ void startGame(int attempts, const char* username)
 {
     const char* word = getRandomWord(WORDS_FILE);
 
-    if (!word)
-    {
+    if (!word) {
         std::cout << RED << "Error retrieving word." << CRESET << std::endl;
         return;
     }

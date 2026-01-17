@@ -24,8 +24,7 @@
 void appendToBuffer(char* buffer, int& index, const char* src)
 {
     int i = 0;
-    while (src[i])
-    {
+    while (src[i]) {
         buffer[index] = src[i];
         index++;
         i++;
@@ -53,14 +52,12 @@ char* formatData(const char* username, const char* password)
 
 bool attemptToRegister(const char* username, const char* userLine, char* outputUsername)
 {
-    if (usernameExists(USERS_FILE, username))
-    {
+    if (usernameExists(USERS_FILE, username)) {
         std::cout << RED << "Error: Account with that username already exists." << std::endl;
         return false;
     }
 
-    if (appendLine(USERS_FILE, userLine))
-    {
+    if (appendLine(USERS_FILE, userLine)) {
         std::cout << "Account registered successfully!" << std::endl;
         strCpy(outputUsername, username);
         return true;
@@ -75,8 +72,7 @@ bool registerAccount(char* outputUsername)
     char* username = readUserLine("Type desired username: ");
     char* password = readUserLine("Type desired password: ");
 
-    if (!username || !password)
-    {
+    if (!username || !password) {
         return false;
     }
 
@@ -97,18 +93,20 @@ int loginIntoAccount(char* outputUsername)
 
     char type[32] = {0};
     bool accountFound = findAccount(USERS_FILE, username, password, type, sizeof(type));
-    if (accountFound)
-    {
+    if (accountFound) {
         std::cout << "Login successful!" << std::endl;
         strCpy(outputUsername, username); 
 
         delete[] username;
         delete[] password;
-        if(strEquals(type, "admin")) return -1;
-        else return 1;
+        if (strEquals(type, "admin")) { 
+            return -1;
+        }
+        else {
+            return 1;
+        } 
     }
-    else
-    {
+    else {
         std::cout << RED << "Error: Failed to login into account." << std::endl;
         std::cin.get();
         delete[] username;

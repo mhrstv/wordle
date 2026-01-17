@@ -27,22 +27,18 @@ int main()
     char currentUsername[MAX_BUFFER_SIZE];
     printMenu();
     int userChoice = readUserInt(PROMPT_MENU_INPUT, MENU_MIN, MENU_MAX);
-    if (userChoice == 1)
-    {
+    
+    if (userChoice == 1) {
         int loginResult = loginIntoAccount(currentUsername);
-        if (loginResult == 1)
-        {
+        if (loginResult == 1) {
             startGame(MAX_ATTEMPTS, currentUsername);
         }
-        else if (loginResult == -1)
-        {
+        else if (loginResult == -1) {
             adminMenu();
         }
     }
-    else if (userChoice == 2)
-    {
-        if (registerAccount(currentUsername))
-        {
+    else if (userChoice == 2) {
+        if (registerAccount(currentUsername)) {
             startGame(MAX_ATTEMPTS, currentUsername);
         }
     }
