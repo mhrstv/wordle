@@ -101,7 +101,7 @@ void runGameLoop(const char* word, int maxAttempts, bool& guessed)
     size_t len = strLen(word);
     int currentAttempts = 0;
 
-    std::cout << "You have " << BLU << maxAttempts << CRESET << " attempts left." << std::endl;
+    std::cout << GRN << "Game started!" << CRESET << " You have " << BLU << maxAttempts << CRESET << " attempts left." << std::endl;
 
     while (currentAttempts < maxAttempts && !guessed)
     {
