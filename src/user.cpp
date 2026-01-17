@@ -25,6 +25,7 @@
 
 bool compareGuessLength(const char* guess, size_t requiredLength)
 {
+    if(!guess) return false;
     if (strLen(guess) != requiredLength) {
         std::cout << RED << "Your guess must be " << requiredLength << " letters long." << std::endl;
         std::cout << CRESET;
@@ -35,6 +36,7 @@ bool compareGuessLength(const char* guess, size_t requiredLength)
 
 void printGuessResult(const char* guess, const char* target, size_t length)
 {
+    if(!guess || !target) return;
     std::cout << CURSOR_UP << ERASE_LINE << "\r"; 
     for (int i = 0; i < length; i++) {
         char current = guess[i];
@@ -60,7 +62,12 @@ void printGuessResult(const char* guess, const char* target, size_t length)
 // Handles a single player turn
 bool playerTurn(const char* word, size_t len, bool& guessed)
 {
+    if(!word) return false;
     char* guess = readUserLine("");
+    if (!guess) {
+        std::cout << RED << "Error: Failed to read input." << CRESET << std::endl;
+        return false;
+    }
     if (!compareGuessLength(guess, len)) {
         delete[] guess;
         return false;
@@ -88,6 +95,7 @@ bool playerTurn(const char* word, size_t len, bool& guessed)
 
 void runGameLoop(const char* word, int maxAttempts, bool& guessed)
 {
+    if(!word) return;
     size_t len = strLen(word);
     int currentAttempts = 0;
 
@@ -102,6 +110,7 @@ void runGameLoop(const char* word, int maxAttempts, bool& guessed)
 
 void endGame(const char* word, bool guessed, const char* username)
 {
+    if(!word || !username) return;
     if (!guessed) {
         std::cout << RED << "You lose. No more attempts left." << CRESET << std::endl;
         std::cout << "The correct word was: " << word << std::endl;
@@ -113,7 +122,8 @@ void endGame(const char* word, bool guessed, const char* username)
 
 void startGame(int attempts, const char* username)
 {
-    const char* word = getRandomWord(WORDS_FILE);
+    if(!username) return;
+    char* word = getRandomWord(WORDS_FILE);
 
     if (!word) {
         std::cout << RED << "Error retrieving word." << CRESET << std::endl;

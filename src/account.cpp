@@ -23,6 +23,7 @@
 // Appends the source to the destination buffer at the selected index
 void appendToBuffer(char* buffer, int& index, const char* src)
 {
+    if(!buffer || !src) return;
     int i = 0;
     while (src[i]) {
         buffer[index] = src[i];
@@ -34,6 +35,7 @@ void appendToBuffer(char* buffer, int& index, const char* src)
 // Formats account data into one line
 char* formatData(const char* username, const char* password)
 {
+    if(!username || !password) return nullptr;
     char* userLine = new char[MAX_BUFFER_SIZE * 2];
     int index = 0;
 
@@ -52,6 +54,7 @@ char* formatData(const char* username, const char* password)
 
 bool attemptToRegister(const char* username, const char* userLine, char* outputUsername)
 {
+    if(!username || !userLine || !outputUsername) return false;
     if (usernameExists(USERS_FILE, username)) {
         std::cout << RED << "Error: Account with that username already exists." << std::endl;
         return false;
@@ -69,12 +72,9 @@ bool attemptToRegister(const char* username, const char* userLine, char* outputU
 
 bool registerAccount(char* outputUsername)
 {
+    if(!outputUsername) return false;
     char* username = readUserLine("Type desired username: ");
     char* password = readUserLine("Type desired password: ");
-
-    if (!username || !password) {
-        return false;
-    }
 
     char* userLine = formatData(username, password);
     bool result = attemptToRegister(username, userLine, outputUsername);
@@ -88,6 +88,7 @@ bool registerAccount(char* outputUsername)
 
 int loginIntoAccount(char* outputUsername)
 {
+    if(!outputUsername) return 0;
     char* username = readUserLine("Enter your username: ");
     char* password = readUserLine("Enter your password: ");
 

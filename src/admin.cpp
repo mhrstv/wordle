@@ -69,6 +69,8 @@ void adminMenu()
 // Adds a word to the words file
 bool addWord(const char* fileName)
 {
+    if(!fileName) return false;
+
     std::cout << "Enter word to add to words list: ";
     char word[MAX_WORD_LENGTH + 1];
     std::cin.getline(word, MAX_WORD_LENGTH + 1);
@@ -88,6 +90,8 @@ bool addWord(const char* fileName)
 // Removes a word from the words file
 bool removeWord(const char* fileName)
 {
+    if(!fileName) return false;
+
     std::cout << "Enter word to remove from words list: ";
     char word[MAX_WORD_LENGTH + 1];
     std::cin.getline(word, MAX_WORD_LENGTH + 1);
@@ -160,6 +164,8 @@ void printLeaderboard(UserStat* stats, int count)
 
 void viewLeaderboard(const char* fileName)
 {
+    if(!fileName) return;
+    
     UserStat stats[MAX_STATS];
     int count = loadLeaderboardData(fileName, stats, MAX_STATS);
 

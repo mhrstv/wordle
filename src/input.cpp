@@ -21,6 +21,7 @@
 
 // Reads an integer from the console input within the specified range
 int readUserInt(const char* prompt, int MIN, int MAX) {
+    if(!prompt) prompt = "";
     int input;
     while (true) {
         std::cout << prompt << "(" << MIN << "-" << MAX << "): ";
@@ -37,6 +38,7 @@ int readUserInt(const char* prompt, int MIN, int MAX) {
 
 // Reads a string from the console input
 char* readUserLine(const char* prompt) {
+    if(!prompt) prompt = "";
     std::cout << prompt;
     char* line = new char[MAX_BUFFER_SIZE]; 
     std::cin.getline(line, MAX_BUFFER_SIZE);

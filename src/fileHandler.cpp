@@ -25,6 +25,7 @@
 
 bool startsWith(const char* line, const char* str)
 {
+    if(!line || !str) return false;
     while (*str != '\0') {
         if (*line == '\0' || *line != *str) {
             return false;
@@ -40,6 +41,7 @@ bool startsWith(const char* line, const char* str)
 
 bool usernameExists(const char* fileName, const char* username)
 {
+    if(!fileName || !username) return false;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         return false;
@@ -59,6 +61,7 @@ bool usernameExists(const char* fileName, const char* username)
 
 int loadLines(const char* fileName, int maxLines)
 {
+    if(!fileName) return -1;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         std::cout << RED << "Error: Could not open source file." << std::endl;
@@ -79,6 +82,7 @@ int loadLines(const char* fileName, int maxLines)
 
 bool appendLine(const char* fileName, const char* line)
 {
+    if(!fileName || !line) return false;
     std::ofstream file(fileName, std::ios::out | std::ios::app);
 
     if (!file.is_open()) {
@@ -95,6 +99,7 @@ bool appendLine(const char* fileName, const char* line)
 // Transfers content from source stream to destination stream, excluding the specified line
 void transferContent(std::ifstream& src, std::ofstream& dest, const char* excludeLine)
 {
+    if(!excludeLine) return;
     char buffer[MAX_BUFFER_SIZE];
     while (src.getline(buffer, MAX_BUFFER_SIZE)) {
         if (!strEquals(buffer, excludeLine)) {
@@ -105,6 +110,7 @@ void transferContent(std::ifstream& src, std::ofstream& dest, const char* exclud
 
 bool removeLine(const char* fileName, const char* line)
 {
+    if(!fileName || !line) return false;
     std::ifstream inputFile(fileName);
     if (!inputFile.is_open()) {
         std::cout << RED << "Error: Could not open source file." << std::endl;
@@ -132,6 +138,7 @@ bool removeLine(const char* fileName, const char* line)
 
 bool containsLine(const char* fileName, const char* line)
 {
+    if(!fileName || !line) return false;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         std::cout << RED << "Error: Could not open source file." << std::endl;
@@ -159,6 +166,7 @@ bool containsLine(const char* fileName, const char* line)
 // Checks if the provided username and password match the data in the line
 bool checkCredentials(const char* line, const char* user, const char* pass, char* type, int typeSize)
 {
+    if (!line || !user || !pass) return false;
     int i = 0;
     int j = 0;
 
@@ -197,6 +205,7 @@ bool checkCredentials(const char* line, const char* user, const char* pass, char
 // Searches for an account with the given username and password
 bool findAccount(const char* fileName, const char* username, const char* password, char* type, int typeSize)
 {
+    if (!fileName || !username || !password) return false;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         return false;
@@ -227,6 +236,7 @@ int countFileLines(std::ifstream& file)
 
 char* getRandomWord(const char* fileName)
 {
+    if(!fileName) return nullptr;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         return nullptr;
@@ -265,6 +275,7 @@ char* getRandomWord(const char* fileName)
 
 bool isUserMatch(const char* line, const char* username, int& colonIndex)
 {
+    if(!line || !username) return false;
     int i = 0;
     while (username[i] != '\0') {
         if (line[i] != username[i]) {
@@ -283,6 +294,7 @@ bool isUserMatch(const char* line, const char* username, int& colonIndex)
 // Updates the statistics for the specified user and writes them to the output stream
 void updateStats(std::ofstream& out, const char* username, const char* dataStart, bool won)
 {
+    if(!out || !username || !dataStart) return;
     int i = 0;
     int played = 0;
 
@@ -306,6 +318,7 @@ void updateStats(std::ofstream& out, const char* username, const char* dataStart
 
 void copyFile(const char* srcFile, const char* destFile)
 {
+    if(!srcFile || !destFile) return;
     std::ifstream src(srcFile);
     std::ofstream dst(destFile);
     char buffer[MAX_BUFFER_SIZE];
@@ -314,11 +327,15 @@ void copyFile(const char* srcFile, const char* destFile)
         while (src.getline(buffer, MAX_BUFFER_SIZE)) {
             dst << buffer << "\n";
         }
+
+        dst.close();
+        src.close();
     }
 }
 
 void processLeaderboardUpdate(std::ifstream& infile, std::ofstream& outfile, const char* username, bool won, bool& found)
 {
+    if(!infile || !outfile || !username) return;
     char line[MAX_BUFFER_SIZE];
     while (infile.getline(line, MAX_BUFFER_SIZE)) {
         int colonIndex = 0;
@@ -334,6 +351,7 @@ void processLeaderboardUpdate(std::ifstream& infile, std::ofstream& outfile, con
 
 bool updateLeaderboard(const char* fileName, const char* username, bool won)
 {
+    if(!fileName || !username) return false;
     std::ifstream infile(fileName);
     std::ofstream outfile("temp.txt");
 
@@ -361,6 +379,7 @@ bool updateLeaderboard(const char* fileName, const char* username, bool won)
 // Parses an integer from the line starting at index i
 int parseStatInt(const char* line, int& i)
 {
+    if(!line) return 0;
     int value = 0;
     while (line[i] >= '0' && line[i] <= '9') {
         value = value * 10 + (line[i] - '0');
@@ -372,6 +391,7 @@ int parseStatInt(const char* line, int& i)
 // Parses a line from the leaderboard file into a UserStat struct
 void parseStatLine(const char* line, UserStat& stat)
 {
+    if(!line) return;
     int i = 0;
     int nameIndex = 0;
 
@@ -402,6 +422,7 @@ void parseStatLine(const char* line, UserStat& stat)
 
 int loadLeaderboardData(const char* fileName, UserStat* stats, int maxStats)
 {
+    if(!fileName || !stats) return 0;
     std::ifstream file(fileName);
     if (!file.is_open()) {
         return 0;
