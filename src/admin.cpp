@@ -113,13 +113,13 @@ void printSortMenu()
     std::cout << "2. By Win Rate (Descending)\n" << CRESET;
 }
 
-bool swap(const UserStat& a, const UserStat& b, int choice)
+bool swap(const UserStat& firstStat, const UserStat& secondStat, int choice)
 {
     if (choice == 1)
     {
-        return a.played < b.played;
+        return firstStat.played < secondStat.played;
     }
-    return a.winRate < b.winRate;
+    return firstStat.winRate < secondStat.winRate;
 }
 
 void sortLeaderboard(UserStat* stats, int count, int choice)
