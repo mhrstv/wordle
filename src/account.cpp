@@ -95,7 +95,7 @@ int loginIntoAccount(char* outputUsername)
 
     char type[32] = {0};
     bool accountFound = findAccount(USERS_FILE, username, password, type, sizeof(type));
-    if(accountFound)
+    if (accountFound)
     {
         std::cout << "Login successful!" << std::endl;
         strCpy(outputUsername, username); 

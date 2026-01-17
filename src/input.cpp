@@ -21,12 +21,12 @@
 
 int readUserInt(const char* prompt, int MIN, int MAX) {
     int input;
-    while(true) 
+    while (true) 
     {
         std::cout << prompt << "(" << MIN << "-" << MAX << "): ";
         if (std::cin >> input) 
         {
-            if(input >= MIN && input <= MAX) 
+            if (input >= MIN && input <= MAX) 
             {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 return input;

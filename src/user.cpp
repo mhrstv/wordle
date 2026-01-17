@@ -25,7 +25,7 @@
 
 bool compareGuessLength(const char* guess, size_t requiredLength)
 {
-    if(strLen(guess) != requiredLength)
+    if (strLen(guess) != requiredLength)
     {
         std::cout << RED << "Your guess must be " << requiredLength << " letters long." << std::endl;
         std::cout << CRESET;
@@ -37,26 +37,26 @@ bool compareGuessLength(const char* guess, size_t requiredLength)
 void printGuessResult(const char* guess, const char* target, size_t length)
 {
     std::cout << CURSOR_UP << ERASE_LINE << "\r"; 
-    for(int i = 0; i < length; i++)
+    for (int i = 0; i < length; i++)
     {
         char current = guess[i];
-        if(current == target[i])
+        if (current == target[i])
         {
             std::cout << GRN << current << CRESET;
         }
         else
         {
             bool found = false;
-            for(int j = 0; j < length; j++)
+            for (int j = 0; j < length; j++)
             {
-                if(target[j] == current)
+                if (target[j] == current)
                 {
                     found = true;
                     break;
                 }
             }
 
-            if(found) std::cout << YEL << current << CRESET;
+            if (found) std::cout << YEL << current << CRESET;
             else std::cout << WHT << current << CRESET;
         }
     }
@@ -71,9 +71,9 @@ bool playerTurn(const char* word, size_t len, bool& guessed)
         delete[] guess;
         return false;
     }
-    for(int i = 0; i < strLen(guess); i++)
+    for (int i = 0; i < strLen(guess); i++)
     {
-        if(!isLetter(guess[i]))
+        if (!isLetter(guess[i]))
         {
             std::cout << RED << "Error: Word must contain only latin letters." << CRESET << std::endl;
             delete[] guess;
