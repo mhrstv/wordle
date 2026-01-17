@@ -158,11 +158,13 @@ bool containsLine(const char* fileName, const char* line)
         file.getline(buffer, MAX_BUFFER_SIZE);
         if (strEquals(buffer, line))
         {
+            file.close();
             return true;
         }
 
         if (file.eof())
         {
+            file.close();
             return false;
         }
     }
@@ -227,10 +229,12 @@ bool findAccount(const char* fileName, const char* username, const char* passwor
     {
         if (checkCredentials(buffer, username, password, type, typeSize))
         {
+            file.close();
             return true;
         }
     }
 
+    file.close();
     return false;
 }
 
@@ -256,6 +260,7 @@ char* getRandomWord(const char* fileName)
     int count = countFileLines(file);
     if (count == 0)
     {
+        file.close();
         return nullptr;
     }
 
@@ -283,6 +288,7 @@ char* getRandomWord(const char* fileName)
         word[i] = buffer[i];
     }
 
+    file.close();
     return word;
 }
 
