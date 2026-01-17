@@ -20,6 +20,7 @@
 
 #include <iostream>
 
+// Appends the source to the destination buffer at the selected index
 void appendToBuffer(char* buffer, int& index, const char* src)
 {
     int i = 0;
@@ -31,6 +32,7 @@ void appendToBuffer(char* buffer, int& index, const char* src)
     }
 }
 
+// Formats account data into one line
 char* formatData(const char* username, const char* password)
 {
     char* userLine = new char[MAX_BUFFER_SIZE * 2];

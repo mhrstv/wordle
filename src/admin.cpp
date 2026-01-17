@@ -72,6 +72,7 @@ void adminMenu()
     }
 }
 
+// Adds a word to the words file
 bool addWord(const char* fileName)
 {
     std::cout << "Enter word to add to words list: ";
@@ -93,6 +94,7 @@ bool addWord(const char* fileName)
     return !containsLine(fileName, word) && appendLine(fileName, word);
 }
 
+// Removes a word from the words file
 bool removeWord(const char* fileName)
 {
     std::cout << "Enter word to remove from words list: ";
@@ -113,7 +115,8 @@ void printSortMenu()
     std::cout << "2. By Win Rate (Descending)\n" << CRESET;
 }
 
-bool swap(const UserStat& firstStat, const UserStat& secondStat, int choice)
+// This function returns true if 'firstStat' should be swapped with 'secondStat' based on the chosen sorting criteria
+bool shouldSwap(const UserStat& firstStat, const UserStat& secondStat, int choice)
 {
     if (choice == 1)
     {
@@ -128,7 +131,7 @@ void sortLeaderboard(UserStat* stats, int count, int choice)
     {
         for (int j = 0; j < count - i - 1; j++)
         {
-            if (swap(stats[j], stats[j + 1], choice))
+            if (shouldSwap(stats[j], stats[j + 1], choice))
             {
                 UserStat temp = stats[j];
                 stats[j] = stats[j + 1];

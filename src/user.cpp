@@ -63,6 +63,7 @@ void printGuessResult(const char* guess, const char* target, size_t length)
     std::cout << std::endl;
 }
 
+// Handles a single player turn
 bool playerTurn(const char* word, size_t len, bool& guessed)
 {
     char* guess = readUserLine("");

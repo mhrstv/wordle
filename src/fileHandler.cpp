@@ -101,6 +101,7 @@ bool appendLine(const char* fileName, const char* line)
     return true;
 }
 
+// Transfers content from source stream to destination stream, excluding the specified line
 void transferContent(std::ifstream& src, std::ofstream& dest, const char* excludeLine)
 {
     char buffer[MAX_BUFFER_SIZE];
@@ -173,6 +174,7 @@ bool containsLine(const char* fileName, const char* line)
     return false;
 }
 
+// Checks if the provided username and password match the data in the line
 bool checkCredentials(const char* line, const char* user, const char* pass, char* type, int typeSize)
 {
     int i = 0;
@@ -216,6 +218,7 @@ bool checkCredentials(const char* line, const char* user, const char* pass, char
     return true;
 }
 
+// Searches for an account with the given username and password
 bool findAccount(const char* fileName, const char* username, const char* password, char* type, int typeSize)
 {
     std::ifstream file(fileName);
@@ -312,6 +315,7 @@ bool isUserMatch(const char* line, const char* username, int& colonIndex)
     return false;
 }
 
+// Updates the statistics for the specified user and writes them to the output stream
 void updateStats(std::ofstream& out, const char* username, const char* dataStart, bool won)
 {
     int i = 0;
@@ -400,6 +404,7 @@ bool updateLeaderboard(const char* fileName, const char* username, bool won)
     return true;
 }
 
+// Parses an integer from the line starting at index i
 int parseStatInt(const char* line, int& i)
 {
     int value = 0;
@@ -411,6 +416,7 @@ int parseStatInt(const char* line, int& i)
     return value;
 }
 
+// Parses a line from the leaderboard file into a UserStat struct
 void parseStatLine(const char* line, UserStat& stat)
 {
     int i = 0;
