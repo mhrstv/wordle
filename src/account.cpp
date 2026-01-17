@@ -108,6 +108,7 @@ int loginIntoAccount(char* outputUsername)
     else
     {
         std::cout << RED << "Error: Failed to login into account." << std::endl;
+        std::cin.get();
         delete[] username;
         delete[] password;
         return 0;
